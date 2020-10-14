@@ -1,5 +1,33 @@
 <h1>トップページ</h1>
 <% if user_signed_in? %>
-  <div>user_name: <%= current_user.user_name %></div>
-  <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+  <div>ユーザ名: <%= current_user.user_name %></div>
+  <div class="link">
+    <div><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></div>
+    <div><%= link_to "ユーザを削除する！ツイートも消えます！", user_registration_path, method: :delete %></div>
+  </div>
 <% end %>
+
+<%= form_with model: @tweet, url: tweets_path, method: :post, local: true do |f| %>
+  <div>
+    <%= f.text_area :message, placeholder: "メッセージを入力してください" %>
+  </div>
+  <%= f.submit "つぶやく", class: "button"%>
+<% end %>
+
+<div class="messages">
+  <% @tweets.each do |tweet| %>
+    <div class="message">
+      <div class="message_head">
+        <div class="message_user_name">
+          投稿者：<%= tweet.user.user_name %>
+        </div>
+        <div class="message_created_at">
+          <%= time_ago_in_words(tweet.created_at) %>
+        </div>
+      </div>
+      <div class="message_content">
+        <%= simple_format(tweet.message) %>
+      </div>
+    </div>
+  <% end %>
+</div>
