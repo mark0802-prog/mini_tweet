@@ -24,6 +24,14 @@
         <div class="message_created_at">
           <%= time_ago_in_words(tweet.created_at) %>
         </div>
+        <% if tweet.users.ids.include?(current_user.id) %>
+          <%= button_to "いいね", favorite_path(tweet.id), method: :delete, style: "background-color: pink; border-radius: 50vh;" %>
+        <% else %>
+          <%= button_to "いいね", favorites_path, params: {tweet_id: tweet.id}, style: "background-color: white; border-radius: 50vh;" %>
+        <% end %>
+        <div class="favorite_count">
+          <%= tweet.favorites.count %>
+        </div>
       </div>
       <div class="message_content">
         <%= simple_format(tweet.message) %>
