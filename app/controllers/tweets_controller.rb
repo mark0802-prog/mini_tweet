@@ -1,7 +1,7 @@
 class TweetsController < ApplicationController
   def index
     @tweet = Tweet.new
-    @tweets = Tweet.includes(:user).reverse_order
+    @tweets = Tweet.includes(:user, :users).reverse_order
   end
 
   def create
