@@ -30,7 +30,7 @@
           <%= button_to "いいね", favorites_path, params: {tweet_id: tweet.id}, style: "background-color: white; border-radius: 50vh;" %>
         <% end %>
         <div class="favorite_count">
-          <%= tweet.favorites.count %>
+          <%= tweet.favorites.size %>
         </div>
       </div>
       <div class="message_content">
